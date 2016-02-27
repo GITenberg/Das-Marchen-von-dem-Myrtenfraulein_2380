@@ -1,0 +1,31 @@
+_repo: Das-Marchen-von-dem-Myrtenfraulein_2380
+creator:
+  author:
+    agent_name: Brentano, Clemens
+    aliases:
+    - Von Brentano, Clemens
+    - Brentano, Clemens Maria
+    - Brentano, Clemens von
+    - Brentano, Clement
+    birthdate: 1778
+    deathdate: 1842
+    gutenberg_agent_id: '882'
+    url: http://www.gutenberg.org/2009/agents/882
+    wikipedia:
+    - http://de.wikipedia.org/wiki/Clemens_Brentano
+    - http://en.wikipedia.org/wiki/Clemens_Brentano
+description: ''
+gutenberg_bookshelf: DE Kinderbuch
+gutenberg_issued: '2000-11-01'
+gutenberg_type: Text
+identifiers:
+  gutenberg: '2380'
+language: de
+publisher: Project Gutenberg
+rights: Public domain in the USA.
+rights_url: http://creativecommons.org/about/pdm
+subjects:
+- !lcc 'PT'
+- !lcsh 'Fairy tales -- Germany'
+title: Das Märchen von dem Myrtenfräulein
+url: http://www.gutenberg.org/ebooks/2380
