@@ -1,0 +1,61 @@
+sudo: required
+dist: trusty
+language: ruby
+
+before_install:
+before_install:
+- gem install asciidoctor -v 1.5.2
+- gem install tilt
+- sudo pip install git+https://github.com/gitenberg-dev/gitberg
+- sudo pip install pillow
+- sudo pip install cssutils
+- sudo pip install docutils
+- sudo pip install roman
+- sudo pip install git+https://github.com/gitenberg-dev/pg-epubmaker
+script:
+- VERSION=`ruby -e "require 'yaml'; meta = YAML.load_file('metadata.yaml'); puts meta['_version'];"`
+- git clone https://github.com/gitenberg-dev/asciidoctor-htmlbook.git
+- sudo pip install -r asciidoctor-htmlbook/gitberg-machine/requirements.txt
+
+- /usr/bin/python -c "from gitenberg import travis; travis.build_epub()"
+- ebook-convert book.epub book.mobi
+- xvfb-run ebook-convert book.epub book.pdf
+branches:
+  only:
+  - master
+notifications:
+  webhooks:
+    urls:
+      - https://unglue.it/api/travisci/webhook
+    on_success: always
+    on_failure: never
+    on_start: never
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: BcVbA1AwSASFrfwagSKJblNfR6Oaj7PQ+NVxA2F5gj796Fs1bQj23UjwFSsNd/ucTW1fEtRtDbapSyqRAsuauuW4fWZzC1/NAOVQmRu9JPOc7MIvrIIgBqbOecpe2oLV8XyfnA/A3+Jla59of78AMJ1VA0vv+qMT0+mdfzOxXE0/8bpN0xPBaZV6Fq23JxoXamn0LLI3Gk/xW35FQg08dN9oyYALGBd1yOglw2aWY55bz/zhYGT3Pp4gK+ThrHgIEKE2cRB3EBuPjG/u5UEmJbm6Dw5s4rktUq9zN7C5Mqh8msNneDds21J7VwBE7Duulne6a0/JIHJEhu9VRI/9jamHcMydhbbYKF/EG3zcSexcg4QrJUei2BopmzcrYj8qpQ+ZRuuvrifSofKT4oKdVTc9PAjYoaPL3l4RoXaB4wYy/ofnQZIDu0ZGlmBGfP0QpDFg0SrJgACDBxH0hAskl3YULM8Bm2g1geApCCAzwPYB6SqrkL5RAB3n2TSZ9Ze8WlnWdpKrHCTq8odS/KYiFy5O3OGvMGv8bsywK9m6TPFUdopwUONKXM7Uu1uB5MQJKnwklF2h51PHi0zgg5is2y4bfGgtZReNLgQqvQuOQWFEEpzbaPPB7Hq50Kav8DwF3G3bxkI8dq5Ked9XQ92VyyhpgTZwb/CmHG4o+KI8fEs=
+  file:
+    - book.epub
+    - book.mobi
+    - book.pdf
+  "on":
+    repo: GITenberg/Das-Marchen-von-dem-Myrtenfraulein_2380
+addons:
+  apt:
+    packages:
+    - xsltproc
+    - xvfb
+    - calibre
+    - python-pip
+    - git
+    - python-dev
+    - libjpeg-dev
+    - libpng-dev
+    - libfreetype6
+    - libfreetype6-dev
+    - zlib1g-dev
+    - python-lxml
+    - libxml2-dev
+    - libxslt1-dev
+    - tidy
